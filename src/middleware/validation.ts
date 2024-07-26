@@ -15,7 +15,6 @@ const handleValidationErrors = (
 
 export const validateMyUserRequest = [
   body("name").isString().notEmpty().withMessage("Name must be a string"),
-  body("email").isEmail().withMessage("Email must be a valid email"),
   body("addressLine1")
     .isString()
     .notEmpty()

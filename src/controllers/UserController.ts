@@ -34,24 +34,21 @@ const createCurrentUser = async (req: Request, res: Response) => {
 
 const updateCurrentUser = async (req: Request, res: Response) => {
   try {
-    const { name, email, addressLine1, city, state, country, pincode } =
-      req.body;
-    const user = await User.findById(
-      req?.userId,
-      { name, email, addressLine1, city, state, country, pincode },
-      { new: true }
-    );
+    const { name, addressLine1, city, state, country, pincode } = req.body;
+    const user = await User.findById(req.userId);
     if (!user) {
       return res.status(404).json({
         message: "User not found",
       });
     }
+
     user.name = name;
     user.addressLine1 = addressLine1;
     user.city = city;
     user.state = state;
     user.country = country;
     user.pincode = pincode;
+
     await user.save();
     res.status(200).json(user);
   } catch (error) {
